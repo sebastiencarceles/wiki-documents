@@ -356,7 +356,152 @@ Guide de dépannage
 Si les modules sont détachés de la carte. Utilisez un câble Grove pour connecter le **Grove LED** à l'interface numérique **D4** du Seeeduino Lotus.  
 
 
+### Leçon 2 : Appuyer sur le bouton pour allumer la LED
+
+La première chose que nous devons savoir est que l'entrée du bouton est un signal numérique, et il n'y a que deux états possibles, 0 ou 1, nous pouvons donc contrôler la sortie en fonction de ces deux états.
+
+- **Pratique :** Utilisez le bouton pour allumer et éteindre le module LED
+
+Composants impliqués
+
+  1. Seeeduino Lotus
+  2. Grove LED
+  3. Grove Button
+  4. Câbles Grove (si nécessaire)
+
+![](https://files.seeedstudio.com/wiki/Grove-Beginner-Kit-For-Arduino/img/Button.png)
+
+Connexion matérielle
+
+  - **Connexion du module :**
+    - Connexion par défaut via les trous de la carte PCB.
+  - Le Seeeduino est ensuite connecté à l'ordinateur via un câble USB.
+
+- **Analyse matérielle** :
+  - Entrée : Bouton
+  - Contrôle : Seeeduino
+  - Sortie : Module LED
+
+Le capteur et la LED utilisent tous deux des signaux numériques, ils doivent donc être connectés à des interfaces numériques.
+
+- **Code logiciel** :
+  - Ouvrez l'IDE Arduino.
+  - Copiez le code suivant, cliquez sur Vérifier pour vérifier les erreurs de syntaxe. Vérifiez qu'il n'y a pas d'erreurs, puis vous pouvez télécharger le code.
+
+```Cpp
+// Bouton pour allumer/éteindre la LED
+// Les constantes ne changeront pas. Elles sont utilisées ici pour définir les numéros de broche :
+const int buttonPin = 6;    // le numéro de la broche du bouton poussoir
+const int ledPin =  4;      // le numéro de la broche de la LED
+
+// Les variables vont changer :
+int buttonState = 0;        // variable pour lire l'état du bouton poussoir
+
+void setup() {
+  // initialise la broche de la LED en tant que sortie :
+  pinMode(ledPin, OUTPUT);
+  // initialise la broche du bouton poussoir en tant qu'entrée :
+  pinMode(buttonPin, INPUT);
+}
+
+void loop() {
+  // lit l'état de la valeur du bouton poussoir :
+  buttonState = digitalRead(buttonPin);
+
+  // vérifie si le bouton poussoir est enfoncé. S'il l'est, buttonState est HIGH :
+  if (buttonState == HIGH) {
+    // allume la LED :
+    digitalWrite(ledPin, HIGH);
+  } else {
+    // éteint la LED :
+    digitalWrite(ledPin, LOW);
+  }
+}
+```
 
 
 
-### Lesson 2: Pressing Button to Light Up LED
+Analyse du code
+
+
+```cpp
+pinMode(ledPin, OUTPUT);
+```
+
+Définit la LED comme unité de sortie.
+
+```cpp
+pinMode(buttonPin, INPUT);
+```
+
+Définit le bouton comme unité d'entrée.  
+
+
+```cpp
+buttonState = digitalRead(buttonPin);
+```
+
+**Description :**
+
+Lit la valeur de la broche numérique spécifiée, soit `HIGH` (élevée) soit `LOW` (bas).
+
+**Syntaxe :**
+
+digitalRead(**pin**)
+
+**Paramètres :**
+
+**pin** : le numéro de la broche Arduino que vous souhaitez lire
+
+Cette fonction est utilisée pour lire les états des broches numériques, soit HIGH (élevée) soit LOW (bas). Lorsque le bouton est enfoncé, l'état est HIGH (élevé), sinon il est LOW (bas).
+
+```cpp
+if (buttonState == HIGH) {
+  digitalWrite(ledPin, HIGH);
+} else {
+  digitalWrite(ledPin, LOW);
+}
+```
+
+**Description :**
+
+La structure if/else permet un contrôle plus précis du flux du code que la simple instruction if, en permettant de regrouper plusieurs tests. Une clause else (si elle existe) est exécutée si la condition dans l'instruction if est fausse. Le else peut être suivi d'un autre test if, de sorte que plusieurs tests mutuellement exclusifs puissent être exécutés en même temps.
+
+Chaque test passe au suivant jusqu'à ce qu'un test vrai soit rencontré. Lorsqu'un test vrai est trouvé, son bloc de code associé est exécuté, puis le programme passe à la ligne suivant la construction if/else entière. Si aucun test ne s'avère vrai, le bloc else par défaut est exécuté, s'il est présent, et définit le comportement par défaut.
+
+Notez qu'un bloc else if peut être utilisé avec ou sans un bloc else de terminaison, et vice versa. Un nombre illimité de ces branches else if est autorisé.
+
+
+
+**Syntaxe :**
+
+```cpp
+if (condition1) {
+  // faire chose A
+}
+else if (condition2) {
+  // faire chose B
+}
+else {
+  // faire chose C
+}
+```
+
+L'utilisation de l'instruction est la suivante : si l'expression logique entre parenthèses est vraie, exécutez l'instruction entre accolades après **if**, sinon exécutez l'instruction entre accolades après **else**. Si l'état du bouton est haut, la broche de la LED produit un niveau haut et allume la LED, sinon éteint la LED.
+
+**Effet de démonstration et résultat de l'impression série :**
+
+Appuyer sur le bouton allumera le module LED.
+
+Guide de connexion
+
+Utilisez un câble Grove pour connecter la LED Grove à l'interface numérique **D4** de Seeeduino Lotus. Connectez le bouton Grove à l'interface numérique **D6**.
+
+
+
+
+
+### Lesson 3: Controlling the Frequency of the Blink
+
+
+
