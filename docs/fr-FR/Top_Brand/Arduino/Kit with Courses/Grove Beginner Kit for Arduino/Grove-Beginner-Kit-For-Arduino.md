@@ -178,45 +178,40 @@ void loop() {
   Tous les modules sont pré-câblés sur une seule carte de circuit imprimé, donc aucun câble ni soudure n'est nécessaire. Cependant, si vous séparez les modules et souhaitez les connecter avec des câbles Grove, veuillez consulter le Guide de séparation.
 
 
-## Lesson Guide
+## Guide de leçon
 
-### Lesson 1: Blinking with the LED
+### Leçon 1 : Clignotement avec la LED
 
-We have completed the output "Hello world" program. Now let's learn how to light the LED module. We know the three basic components of a control system: Input, Control, and Output. But lighting up LED uses only the output, not the input. Seeeduino is the control unit, the LED module is the output unit and the output signal is a digital signal.
+Nous avons terminé le programme de sortie "Hello world". Maintenant, apprenons comment allumer le module LED. Nous connaissons les trois composants de base d'un système de contrôle : Entrée, Contrôle et Sortie. Mais l'allumage de la LED utilise uniquement la sortie, pas l'entrée. Seeeduino est l'unité de contrôle, le module LED est l'unité de sortie et le signal de sortie est un signal numérique.
 
-Background Information:
+Informations de base :
 
+- **Qu'est-ce qu'un signal numérique**
 
-- **What is Digital Signal**
-
-**Digital signal:** Digital signal refers to the value of the amplitude is discrete, the amplitude is limited to a finite number of values. In our controller, the digital signal has two states: LOW(0V) for 0; HIGH(5V) for 1. So sending a HIGH signal to LED can light it up.
+**Signal numérique :** Un signal numérique fait référence à une valeur d'amplitude discrète, l'amplitude étant limitée à un nombre fini de valeurs. Dans notre contrôleur, le signal numérique a deux états : LOW (0V) pour 0 ; HIGH (5V) pour 1. Ainsi, l'envoi d'un signal HIGH à la LED peut l'allumer.
 
 ![Alt text](https://files.seeedstudio.com/wiki/Grove-Beginner-Kit-For-Arduino/img/digital.png)
 
-
-
-Components Involved
-    1. Seeeduino Lotus
-    2. Grove LED
-    3. Grove Cable(If Broken out)
+Composants impliqués :
+  1. Seeeduino Lotus
+  2. Grove LED
+  3. Câble Grove (si nécessaire)
 
 ![](https://files.seeedstudio.com/wiki/Grove-Beginner-Kit-For-Arduino/img/LED.png)
 
+Connexion matérielle :
+  - **Connexion du module**
+    - Connexion par défaut via le trou de la carte PCB.
+  - Connectez le Seeeduino à l'ordinateur via le câble USB.
 
-Hardware connection
-    - **Module connection**
-        - Default connection by PCB stamp hole.
-    - Connect the Seeeduino to the computer through the USB cable.
+- Code logiciel
 
-
--Software Code
-
-    - Open Arduino IDE.
-    - Copy the following code, click Verify to check for syntax errors. Verify that there are no errors, and you can upload the code.
+  - Ouvrez l'IDE Arduino.
+  - Copiez le code suivant, cliquez sur Vérifier pour vérifier les erreurs de syntaxe. Vérifiez qu'il n'y a pas d'erreurs, et vous pouvez téléverser le code.
 
 ```Cpp
-//LED Blink
-//The LED will turn on for one second and then turn off for one second
+// Clignotement de la LED
+// La LED s'allumera pendant une seconde, puis s'éteindra pendant une seconde
 int ledPin = 4;
 void setup() {
     pinMode(ledPin, OUTPUT);
@@ -233,7 +228,7 @@ void loop() {
 
 
 
-Code Analysis
+Analyse du code
 
 
 ```cpp
@@ -241,86 +236,86 @@ setup(){
 }
 ```
 
-The `setup()` function is called when a sketch starts. Use it to initialize variables, pin modes, start using libraries, etc. The `setup()` function will only run once, after each powerup or reset of the Arduino board.
+La fonction `setup()` est appelée lorsque le programme démarre. Utilisez-la pour initialiser les variables, les modes de broches, commencer à utiliser des bibliothèques, etc. La fonction `setup()` ne s'exécute qu'une seule fois, après chaque mise sous tension ou réinitialisation de la carte Arduino.
 
 ```cpp
 loop(){
 }
 ```
 
-After creating a `setup()` function, which initializes and sets the initial values, the `loop()` function does precisely what its name suggests, and loops consecutively, allowing your program to change and respond. Use it to actively control the Arduino board.
+Après avoir créé une fonction `setup()`, qui initialise et définit les valeurs initiales, la fonction `loop()` fait précisément ce que son nom suggère, et boucle de manière consécutive, permettant à votre programme de changer et de réagir. Utilisez-la pour contrôler activement la carte Arduino.
 
 ```cpp
 int ledPin = 4;
 ```
 
-**Description:**
+**Description :**
 
-Converts a value to the int data type.
+Convertit une valeur en type de données `int`.
 
-**Syntax:**
+**Syntaxe :**
 
-int(**x**) or (int)**x** (C-style type conversion)
+int(**x**) ou (int)**x** (conversion de type de style C)
 
-**Parameters:**
+**Paramètres :**
 
-**x**: a value. Allowed data types: any type.
+**x**: une valeur. Types de données autorisés : n'importe quel type.
 
-Assigned an `int` type 4 to variable named ledPin.
+Affecte la valeur 4 de type `int` à la variable nommée ledPin.
 
 ```cpp
 pinMode(ledPin, OUTPUT);
 ```
 
-**Description:**
+**Description :**
 
-Configures the specified pin to behave either as an input or an output. See the Digital Pins page for details on the functionality of the pins.
+Configure la broche spécifiée pour fonctionner en tant qu'entrée ou sortie. Consultez la page des broches numériques pour plus de détails sur les fonctionnalités des broches.
 
-As of Arduino 1.0.1, it is possible to enable the internal pull-up resistors with the mode `INPUT_PULLUP`. Additionally, the `INPUT` mode explicitly disables the internal pullups.
+À partir d'Arduino 1.0.1, il est possible d'activer les résistances de pull-up internes avec le mode `INPUT_PULLUP`. De plus, le mode `INPUT` désactive explicitement les résistances de pull-up internes.
 
-**Syntax:**
+**Syntaxe :**
 
 pinMode(**pin, mode**)
 
-**Parameters:**
+**Paramètres :**
 
-**pin**: the Arduino pin number to set the mode of.
+**pin** : le numéro de broche Arduino pour définir le mode.
 
-**mode**: `INPUT`, `OUTPUT`, or `INPUT_PULLUP`.
+**mode** : `INPUT`, `OUTPUT` ou `INPUT_PULLUP`.
 
-Setting ledPin to the output mode.
+Configuration de la broche ledPin en mode sortie.
 
 ```cpp
 digitalWrite(ledPin, HIGH);
 ```
 
-**Description:**
+**Description :**
 
-Write a `HIGH` or a `LOW` value to a digital pin.
+Écrit une valeur `HIGH` ou `LOW` sur une broche numérique.
 
-If the pin has been configured as an OUTPUT with pinMode(), its voltage will be set to the corresponding value: 5V (or 3.3V on 3.3V boards) for `HIGH`, 0V (ground) for `LOW`.
+Si la broche a été configurée en tant que sortie avec pinMode(), sa tension sera réglée sur la valeur correspondante : 5V (ou 3,3V sur les cartes 3,3V) pour `HIGH`, 0V (masse) pour `LOW`.
 
-If the pin is configured as an INPUT, digitalWrite() will enable (HIGH) or disable (LOW) the internal pullup on the input pin. It is recommended to set the pinMode() to `INPUT_PULLUP` to enable the internal pull-up resistor. See the Digital Pins tutorial for more information.
+Si la broche est configurée en tant qu'entrée, digitalWrite() activera (HIGH) ou désactivera (LOW) la résistance de pull-up interne sur la broche d'entrée. Il est recommandé de définir le pinMode() sur `INPUT_PULLUP` pour activer la résistance de pull-up interne. Consultez le tutoriel sur les broches numériques pour plus d'informations.
 
-If you do not set the pinMode() to OUTPUT, and connect an LED to a pin, when calling digitalWrite(HIGH), the LED may appear dim. Without explicitly setting pinMode(), digitalWrite() will have enabled the internal pull-up resistor, which acts as a large current-limiting resistor.
+Si vous ne définissez pas le pinMode() sur OUTPUT et que vous connectez une LED à une broche, lorsque vous appelez digitalWrite(HIGH), la LED peut sembler faible. Sans définir explicitement pinMode(), digitalWrite() aura activé la résistance de pull-up interne, qui agit comme une résistance de limitation de courant importante.
 
-**Syntax:**
+**Syntaxe :**
 
-digitalWrite(**pin, value**)
+digitalWrite(**pin, valeur**)
 
-**Parameters:**
+**Paramètres :**
 
-**pin**: the Arduino pin number.
+**pin** : le numéro de broche Arduino.
 
-**value**: `HIGH` or `LOW`.
+**valeur** : `HIGH` ou `LOW`.
 
-When we set the ledPin as output, HIGH means sending high level to the pin, LED turns on.
+Lorsque nous définissons ledPin en tant que sortie, HIGH signifie envoyer un niveau haut à la broche, la LED s'allume.
 
 ```cpp
 digitalWrite(ledPin, LOW);
 ```
 
-When we set the led as output, low stands for sending low level to the pin, LED turns off.
+Lorsque nous définissons la LED en tant que sortie, LOW signifie envoyer un niveau bas à la broche, la LED s'éteint.
 
 ```cpp
 delay(1000);
@@ -328,23 +323,23 @@ delay(1000);
 
 **Description:**
 
-Pauses the program for the amount of time (in milliseconds) specified as a parameter. (There are 1000 milliseconds in a second.)
+Met en pause le programme pendant la durée spécifiée en millisecondes en tant que paramètre. (Il y a 1000 millisecondes dans une seconde.)
 
-**Syntax:**
+**Syntaxe:**
 
 delay(**ms**)
 
-**Parameters:** 
+**Paramètres :**
 
-**ms**: the number of milliseconds to pause. Allowed data types: unsigned long.
+**ms** : le nombre de millisecondes à mettre en pause. Types de données autorisés : unsigned long.
 
-Delay the program by 1000ms(1s).
+Met le programme en pause pendant 1000ms (1s).
 
-**Demo Effect and Serial Print Result:**
+**Effet de démonstration et résultat de l'impression série :**
 
-The LED module will be 1 second on and 1 second off.
+Le module LED sera allumé pendant 1 seconde, puis éteint pendant 1 seconde.
 
-**LED Brightness Adjustment:**
+**Ajustement de la luminosité de la LED :**
 
 <div>
   <div align="center"><img src="https://files.seeedstudio.com/wiki/Grove-Beginner-Kit-For-Arduino/img/LED-res.jpeg" /></div>
@@ -352,13 +347,13 @@ The LED module will be 1 second on and 1 second off.
 </div>
 
 
-On the Grove LED module, there is a **variable resistor that can be adjusted using a screw driver.** Twist it to make the LED light up brighter!
+Sur le module Grove LED, il y a un **potentiomètre variable qui peut être ajusté à l'aide d'un tournevis.** Tournez-le pour rendre la LED plus lumineuse!
 
 
-Breakout Guide
+Guide de dépannage
 
 
-If modules are broken out from the board. Use a Grove cable to connect the **Grove LED** to Seeeduino Lotus's digital interface **D4**.  
+Si les modules sont détachés de la carte. Utilisez un câble Grove pour connecter le **Grove LED** à l'interface numérique **D4** du Seeeduino Lotus.  
 
 
 
