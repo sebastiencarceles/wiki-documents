@@ -115,67 +115,67 @@ Le kit débutant Grove dispose d'une démonstration plug and play, où vous bran
 
 Le module Buzzer et LED sont utilisés pour donner des indications.
 
-## How to Get Started With Arduino
+## Comment commencer avec Arduino
 
-### Install the Arduino IDE
+### Installer l'IDE Arduino
 
-- **Arduino IDE** is an integrated development environment for Arduino, which is used for single-chip microcomputer software programming, downloading, testing and so on.
-- Download and Install [Arduino IDE](https://www.arduino.cc/en/Main/Software) for your desired operating system here.
+- **Arduino IDE** est un environnement de développement intégré pour Arduino, utilisé pour la programmation logicielle des microcontrôleurs à puce unique, le téléchargement, les tests, etc.
+- Téléchargez et installez l'IDE Arduino pour votre système d'exploitation souhaité [ici](https://www.arduino.cc/en/Main/Software).
 
 ![](https://files.seeedstudio.com/wiki/Seeeduino_Stalker_V3_1/images/Download_IDE.png)
 
 
 
-### Install the USB driver
+### Installer le pilote USB
 
-- Arduino connects to the PC via a USB cable. The USB driver depends on the type of USB chip you're using on your Arduino. *Note: USB chips are usually printed on the back of the development board.*
+- Arduino se connecte à l'ordinateur via un câble USB. Le pilote USB dépend du type de puce USB que vous utilisez sur votre Arduino. *Remarque : les puces USB sont généralement imprimées à l'arrière de la carte de développement.*
 
-  - Download the [CP2102 USB Driver](https://www.silabs.com/products/development-tools/software/usb-to-uart-bridge-vcp-drivers). **Note:** Download according to your OS.
-  - After the driver installation is completed, connect Arduino to the USB port of PC with a USB cable. 
-      - **For Windows users:** You can see it in `My Computer` -> `Properties` -> `Hardware` -> `Device Management`. A `COM` will appear.
-      - **For Mac OS users:** You can navigate to `` on the top left corner, and choose `About this Mac` -> `System Report...` -> `USB`. A CP2102 USB Driver should appear.
-  - If the driver is not installed, or if the driver is installed incorrectly (not matching the chip model), it will appear as an "unknown device" in the device manager. At this point, the driver should be reinstalled.
+  - Téléchargez le [pilote USB CP2102](https://www.silabs.com/products/development-tools/software/usb-to-uart-bridge-vcp-drivers). **Remarque : téléchargez en fonction de votre système d'exploitation.**
+  - Une fois l'installation du pilote terminée, connectez Arduino au port USB de l'ordinateur à l'aide d'un câble USB.
+      - **Pour les utilisateurs de Windows :** Vous pouvez le voir dans `Poste de travail` -> `Propriétés` -> `Matériel` -> `Gestionnaire de périphériques`. Un `COM` apparaîtra.
+      - **Pour les utilisateurs de Mac OS :** Vous pouvez accéder à `` dans le coin supérieur gauche, puis choisir `À propos de ce Mac` -> `Rapport système...` -> `USB`. Un pilote USB CP2102 devrait apparaître.
+  - Si le pilote n'est pas installé, ou s'il est installé de manière incorrecte (ne correspondant pas au modèle de puce), il apparaîtra comme un "périphérique inconnu" dans le gestionnaire de périphériques. À ce stade, le pilote doit être réinstallé.
 
 
 
-### Start the Arduino IDE
+### Démarrer l'IDE Arduino
 
-1.Open the **Arduino IDE** on your PC.
-2.Click on `Tools` -> `Board`-> `Arduino AVR Boards`-> `Arduino Uno` to select the correct Development Board Model. Select **Arduino Uno** as Board.
+1. Ouvrez l'**IDE Arduino** sur votre ordinateur.
+2. Cliquez sur `Outils` -> `Carte` -> `Arduino AVR Boards` -> `Arduino Uno` pour sélectionner le bon modèle de carte de développement. Sélectionnez **Arduino Uno** comme carte.
 
 ![](https://files.seeedstudio.com/wiki/Grove-Beginner-Kit-For-Arduino/img/uno_board.jpg)
 
-3.Click `Tools` -> `Port` to select the correct Port (the Serial Port showed in Device Manager in the previous step). In this case, `COM11` is selected. **For Mac OS users**, it should be `/dev/cu.SLAB_USBtoUART`.
+3. Cliquez sur `Outils` -> `Port` pour sélectionner le bon port (le port série affiché dans le Gestionnaire de périphériques à l'étape précédente). Dans ce cas, `COM11` est sélectionné. **Pour les utilisateurs de Mac OS**, il devrait être `/dev/cu.SLAB_USBtoUART`.
 
 ![](https://files.seeedstudio.com/wiki/Grove-Beginner-Kit-For-Arduino/img/port.jpg)
 
 
-4.Create a new Arduino file and name it `Hello.ino`, then copy the following code into it:
+4. Créez un nouveau fichier Arduino et nommez-le `Hello.ino`, puis copiez le code suivant dedans :
 
 ```Cpp
 void setup() {
-  Serial.begin(9600); // initializes the serial port with a baud rate of 9600
+  Serial.begin(9600); // initialise le port série avec un débit de 9600 bauds
 }
 void loop() {
-  Serial.println("hello, world"); // prints a string to a serial port
-  delay(1000); //delay of 1 second
+  Serial.println("bonjour, monde"); // imprime une chaîne de caractères sur un port série
+  delay(1000); // attend un délai de 1 seconde
 }
 ```
 
-5.In the upper left corner of the Arduino IDE, there are two buttons, **Verify and Upload**. First, press the Verify button(✓) to compile. After the compilation is successful, press the upload button(→).
+5. Dans le coin supérieur gauche de l'IDE Arduino, il y a deux boutons, **Vérifier et Téléverser**. Appuyez d'abord sur le bouton Vérifier (✓) pour compiler. Après une compilation réussie, appuyez sur le bouton Téléverser (→).
 
 ![](https://files.seeedstudio.com/wiki/Grove-Beginner-Kit-For-Arduino/img/func.png)
 
-6.Navigate to `Tools` -> `Serial Monitor`, or click the **Serial Monitor** in the upper right corner(Magnifier Symbol), you can see the program running results:
+6. Accédez à `Outils` -> `Moniteur Série`, ou cliquez sur le **Moniteur Série** dans le coin supérieur droit (symbole de la loupe), vous pouvez voir les résultats d'exécution du programme :
 
 ![](https://files.seeedstudio.com/wiki/Grove-Beginner-Kit-For-Arduino/img/print.png)
 
-**Note:** If you installed the portable Arduino IDE from our USB Drive, you can find all the module demos in the **Files** -> **Sketch Book**, as well as all the module libraries, are pre-installed with Arduino IDE!
+**Remarque :** Si vous avez installé l'IDE Arduino portable à partir de notre clé USB, vous pouvez trouver toutes les démonstrations de modules dans **Fichiers** -> **Carnet de croquis**, ainsi que toutes les bibliothèques de modules, qui sont préinstallées avec l'IDE Arduino !
 
 ![](https://files.seeedstudio.com/wiki/Grove-Beginner-Kit-For-Arduino/img/Sketchbook.png)
 
-**Note:**
-        All modules are pre-wired on a single circuit board, so no cables and soldering are needed. However, if you break out the modules and want to connect them with Grove  cables, please kindly check the Breakout Guide.
+**Remarque :**
+  Tous les modules sont pré-câblés sur une seule carte de circuit imprimé, donc aucun câble ni soudure n'est nécessaire. Cependant, si vous séparez les modules et souhaitez les connecter avec des câbles Grove, veuillez consulter le Guide de séparation.
 
 
 ## Lesson Guide
