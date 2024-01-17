@@ -621,8 +621,187 @@ Guide de connexion
 
 Utilisez un câble Grove pour connecter la LED à l'interface numérique **D4** du Seeeduino Lotus, et un câble Grove pour connecter le commutateur rotatif Grove à l'interface de signal analogique **A0**.
 
+### Leçon 4 : Faire sonner le buzzer
 
-### Lesson 4: Making the Buzzer go BEEP
+Tout comme le module LED, le buzzer est également un module de sortie qui produit un son de bip. Cela peut être utilisé dans de nombreuses situations à des fins d'indication. Apprenons comment générer du son en utilisant le buzzer !
+
+Informations de base :
+
+- **Quelle est la différence entre un buzzer actif et un buzzer passif**
+
+Il existe deux types de buzzers, l'un est actif et l'autre est passif. Les buzzers actifs et passifs sont utilisés pour produire du son dans les appareils électroniques.
+
+Le **buzzer actif** possède une source d'oscillation interne qui fait retentir le buzzer dès que l'alimentation est appliquée. Les buzzers actifs sont largement utilisés dans les ordinateurs, les imprimantes, les photocopieurs, les alarmes, les jouets électroniques, l'électronique embarquée dans les voitures, les téléphones, les minuteries et autres dispositifs sonores de produits électroniques.
+
+Un **buzzer passif** n'a pas de source d'oscillation interne et doit être piloté par **une onde carrée** et **une fréquence différente**. Il agit comme un haut-parleur électromagnétique, et le signal d'entrée changeant produit du son, plutôt qu'une tonalité automatique.
+
+ <div align="center"><img width={500} src="https://files.seeedstudio.com/wiki/Grove-Beginner-Kit-For-Arduino/img/buzzer-ap.jpg" /></div>
+
+
+Dans ce kit, le **Grove-Buzzer est un buzzer passif** qui nécessite un signal AC pour le contrôler. Cela nous amène alors à la question suivante, comment générer une onde carrée (signaux AC) avec Arduino ! Eh bien, une façon facile est d'utiliser la modulation de largeur d'impulsion (PWM).
+
+- **Qu'est-ce que le PWM**
+
+La **modulation de largeur d'impulsion, ou PWM** en anglais, est une technique permettant d'obtenir des résultats analogiques avec des moyens numériques. Le contrôle numérique est utilisé pour créer une onde carrée, un signal basculant entre l'état allumé et éteint. Ce motif allumé-éteint peut simuler des tensions entre l'état allumé complet (5 volts) et éteint (0 volt) en modifiant la proportion du temps pendant lequel le signal est allumé par rapport au temps pendant lequel le signal est éteint. La durée de l'état allumé est appelée la largeur d'impulsion. Pour obtenir des valeurs analogiques variables, vous modifiez, ou modulez, cette largeur d'impulsion. Si vous répétez rapidement ce motif allumé-éteint, le résultat est similaire à un signal de tension constante entre 0 et 5 volts en tant que signal AC. *Référence : [Arduino](https://www.arduino.cc/en/tutorial/PWM)*. Ce signal PWM peut ensuite être utilisé pour contrôler facilement le buzzer passif.
+
+Pour générer des signaux PWM avec Arduino, vous pouvez utiliser **`analogWrite()`**, contrairement à l'utilisation de `digitalWrite()` pour générer des signaux DC.
+
+Il y a six broches numériques sur votre Seeeduino qui sont marquées par le symbole "~", ce qui signifie qu'elles peuvent envoyer un signal PWM : 3, 5, 6, 9, 10, 11. Elles sont appelées broches PWM.
+
+Composants impliqués
+
+  1. Seeeduino Lotus
+  2. Grove Buzzer
+  3. Câble Grove (si nécessaire)
+
+![](https://files.seeedstudio.com/wiki/Grove-Beginner-Kit-For-Arduino/img/Buzzer.png)
+
+
+
+Connexion matérielle
+
+  - **Connexion du module**
+    - Connexion par défaut via le trou de la carte PCB.
+  - Connectez le Seeeduino à l'ordinateur via le câble USB.
+
+Code logiciel
+
+  - Ouvrez l'IDE Arduino.
+  - Copiez le code suivant, cliquez sur Vérifier pour vérifier les erreurs de syntaxe. Vérifiez qu'il n'y a pas d'erreurs, et vous pouvez télécharger le code.
+
+```Cpp
+int BuzzerPin = 5;
+
+void setup() {
+  pinMode(BuzzerPin, OUTPUT);
+}
+
+void loop() {
+  analogWrite(BuzzerPin, 128);
+  delay(1000);
+  analogWrite(BuzzerPin, 0);
+  delay(0);
+}
+```
+
+Analyse de code
+
+```cpp
+analogWrite(BuzzerPin, 128);
+```
+
+**Description :**
+
+Écrit une valeur analogique (onde PWM) sur une broche. Peut être utilisé pour allumer une LED à différentes intensités lumineuses ou pour contrôler la vitesse d'un moteur. Après un appel à analogWrite(), la broche générera une onde rectangulaire stable avec le rapport cyclique spécifié jusqu'au prochain appel à analogWrite() (ou un appel à digitalRead() ou digitalWrite()) sur la même broche.
+
+**Syntaxe :**
+
+analogWrite(**broche, valeur**)
+
+**Paramètres:**
+
+**broche**: la broche Arduino sur laquelle écrire. Types de données autorisés : int.
+
+**valeur**: le rapport cyclique : entre `0` (toujours éteint) et `255` (toujours allumé). Types de données autorisés : int.
+
+Écrit une valeur analogique (onde PWM) sur le Buzzer.
+
+**Effet de démonstration et résultat de l'impression série:**
+
+Le Buzzer émet un bip.
+
+Guide de connexion
+
+Utilisez un câble Grove pour connecter le Buzzer Grove à l'interface numérique **D5** du Seeeduino Lotus.
+
+-----
+
+Utilisation de la PWM
+
+Maintenant que nous avons appris à utiliser la PWM, en plus de l'utiliser pour contrôler le buzzer passif, nous pouvons également l'utiliser pour contrôler la vitesse d'un moteur et **l'intensité lumineuse des LED**, etc.
+
+Comme l'indique le diagramme ci-dessous, utilisez `analogWrite()` pour générer des ondes PWM. Plus le pourcentage du rapport cyclique est élevé, plus la LED est lumineuse.
+
+<div align="center"><img src="https://files.seeedstudio.com/wiki/Grove-Beginner-Kit-For-Arduino/img/PWM-LED.png" /></div>
+
+
+Cependant, le module LED sur le kit débutant Grove ne peut pas être directement contrôlé par PWM, car le module LED est connecté à D4, et comme mentionné ci-dessus, les broches PWM sont 3, 5, 6, 9, 10, 11, et la broche 4 n'est pas une broche PWM. Si vous souhaitez contrôler la LED avec PWM, vous devez la déconnecter et utiliser le câble Grove pour la connecter au port Grove avec une fonction PWM.
+
+Par exemple, connectons **Grove-LED à D3 en utilisant un câble Grove**:
+
+!!!Note
+  D3 est également interconnecté au capteur de température et d'humidité Grove, et donc cet exemple ne peut pas être utilisé avec le capteur de température et d'humidité Grove en même temps.
+
+<div align="center"><img src="https://files.seeedstudio.com/wiki/Grove-Beginner-Kit-For-Arduino/img/pwmled-connect.png" /></div>
+
+```cpp
+int LED = 3; // Connexion du câble de la LED à D3
+int Potentiometer = A0;
+
+void setup() {
+  pinMode(LED, OUTPUT);
+  pinMode(Potentiometer, INPUT);
+}
+
+void loop() {
+  int potentioValue, Value;
+  potentioValue = analogRead(Potentiometer);
+  Value = map(potentioValue, 0, 1023, 0, 255); // Mappage de la valeur du potentiomètre à la valeur du signal PWM
+  analogWrite(LED, Value);
+}
+```
+
+**Compilez et téléversez** le code, vous devriez pouvoir régler la luminosité de la LED en utilisant des signaux PWM !
+
+Analyse du code
+
+```cpp
+Value = map(potentioValue, 0, 1023, 0, 255);
+```
+
+**Description:**
+
+Remappe un nombre d'une plage à une autre. C'est-à-dire, une valeur de **fromLow** serait mappée à **toLow**, une valeur de **fromHigh** à **toHigh**, des valeurs intermédiaires à des valeurs intermédiaires, etc.
+
+Ne contraint pas les valeurs à l'intérieur de la plage, car les valeurs hors de la plage sont parfois intentionnelles et utiles. La fonction `constrain()` peut être utilisée avant ou après cette fonction, si des limites aux plages sont souhaitées.
+
+Notez que les "bornes inférieures" de chaque plage peuvent être plus grandes ou plus petites que les "bornes supérieures", de sorte que la fonction `map()` peut être utilisée pour inverser une plage de nombres, par exemple :
+
+**y = map(x, 1, 50, 50, 1);**
+
+La fonction gère également bien les nombres négatifs, de sorte que cet exemple
+
+**y = map(x, 1, 50, 50, -100);**
+
+est également valide et fonctionne bien.
+
+La fonction `map()` utilise des calculs entiers, elle ne générera donc pas de fractions, même si les calculs pourraient l'indiquer. Les restes fractionnaires sont tronqués et ne sont ni arrondis ni moyennés.
+
+**Syntaxe :**
+
+map(**valeur, fromLow, fromHigh, toLow, toHigh**)
+
+**Paramètres :**
+
+**valeur** : le nombre à mapper.
+
+**fromLow** : la limite inférieure de la plage actuelle de la valeur.
+
+**fromHigh** : la limite supérieure de la plage actuelle de la valeur.
+
+**toLow** : la limite inférieure de la plage cible de la valeur.
+
+**toHigh** : la limite supérieure de la plage cible de la valeur.
+
+Mapping du signal analogique du capteur de potentiomètre (0 à 1023) à l'intensité lumineuse de la LED (0 à 255).
+
+**Effet de démonstration et résultat de l'impression série :**
+
+Ajustez le potentiomètre pour ajuster la luminosité de la LED.
+
+En résumé, lorsque vous souhaitez utiliser la fonction PWM, assurez-vous de sélectionner les broches avec le symbole "~" devant leur nom.
+
+### Lesson 5:  Making an Light Induct LED
 
 
 
