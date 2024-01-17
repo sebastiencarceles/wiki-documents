@@ -501,7 +501,128 @@ Utilisez un câble Grove pour connecter la LED Grove à l'interface numérique *
 
 
 
-### Lesson 3: Controlling the Frequency of the Blink
+
+### Leçon 3 : Contrôler la fréquence du clignotement
+
+Dans la dernière section, nous avons étudié que le bouton n'a que deux états, l'état ON/OFF correspondant à 0V et 5V, mais en pratique, nous avons souvent besoin de plusieurs états, pas seulement 0V et 5V. Ensuite, vous devez utiliser un signal analogique ! Le potentiomètre rotatif est un exemple classique qui utilise un signal analogique.
+
+Informations de base :
+
+- **Qu'est-ce qu'un signal analogique**
+
+**Signaux analogiques :** Les signaux varient continuellement dans le temps et la valeur, et l'amplitude, la fréquence ou la phase du signal change continuellement à tout moment, comme le signal sonore diffusé actuellement, ou le signal d'image, etc. Le signal analogique a une onde sinusoïdale et une onde triangulaire, etc. Les broches analogiques de votre microcontrôleur peuvent avoir une tension entre 0V et 5V qui est mappée dans une plage entre 0 et 1023, où 1023 est mappé comme 5V et 512 est mappé comme 2,5V, etc.
+
+![Alt text](https://files.seeedstudio.com/wiki/Grove-Beginner-Kit-For-Arduino/img/analog.png)
+
+
+
+Composants impliqués
+  1. Seeeduino Lotus
+  2. Grove LED
+  3. Grove Rotary Switch
+  4. Câbles Grove (si nécessaire)
+
+![](https://files.seeedstudio.com/wiki/Grove-Beginner-Kit-For-Arduino/img/rotary.png)
+
+
+
+Connexion matérielle
+  - **Connexion du module :**
+    - Connexion par défaut via un trou de la carte PCB.
+  - Ensuite, le Seeeduino est connecté à l'ordinateur via un câble USB.
+
+- **Analyse matérielle :**
+
+  - Entrée : Potentiomètre rotatif
+  - Contrôle : Seeeduino Lotus
+  - Sortie : Module LED
+
+L'entrée est un signal analogique, donc elle est connectée à l'interface de signal analogique, le module LED est connecté à l'interface de signal numérique.
+
+
+Logiciel
+
+  - Ouvrez l'IDE Arduino.
+  - Copiez le code suivant, cliquez sur Vérifier pour vérifier les erreurs de syntaxe. Vérifiez qu'il n'y a pas d'erreurs, puis vous pouvez télécharger le code.
+
+```Cpp
+// Contrôle de la LED par le potentiomètre rotatif
+int rotaryPin = A0;    // sélectionne la broche d'entrée pour le potentiomètre rotatif
+int ledPin = 4;      // sélectionne la broche pour la LED
+int rotaryValue = 0;  // variable pour stocker la valeur provenant du potentiomètre rotatif
+
+void setup() {
+  // declare the ledPin as an OUTPUT:
+  pinMode(ledPin, OUTPUT);
+  pinMode(rotaryPin, INPUT);
+}
+
+void loop() {
+  // lire la valeur du capteur :
+  rotaryValue = analogRead(rotaryPin);
+  // allumer la broche ledPin :
+  digitalWrite(ledPin, HIGH);
+  // arrêter le programme pendant <sensorValue> millisecondes :
+  delay(rotaryValue);
+  // éteindre la broche ledPin :
+  digitalWrite(ledPin, LOW);
+  // arrêter le programme pendant <sensorValue> millisecondes :
+  delay(rotaryValue);
+}
+```
+
+
+
+Analyse du code
+
+```cpp
+int rotaryPin = A0;    // sélectionne la broche d'entrée pour le potentiomètre rotatif
+int ledPin = 4;      // sélectionne la broche pour la LED
+```
+**Description :**
+
+Vous pouvez constater que nous définissons rotatePin et ledPin de différentes manières. Cela est dû au fait que le potentiomètre rotatif génère un signal analogique, tandis que la LED est contrôlée par un signal numérique.
+
+Pour **définir une broche analogique**, utilisez A + le numéro de la broche (par exemple, `A0`).
+
+Pour **définir une broche numérique**, utilisez simplement le numéro de la broche (par exemple, `4`).
+
+```cpp
+rotaryValue = analogRead(rotaryPin);
+```
+
+**Description :**
+
+Lit la valeur de la broche analogique spécifiée. Les cartes Arduino contiennent un convertisseur analogique-numérique multicanal sur 10 bits. Cela signifie qu'il va mapper les tensions d'entrée entre 0 et la tension d'alimentation (5V ou 3.3V) en valeurs entières entre 0 et 1023. Sur une Arduino UNO, par exemple, cela donne une résolution entre les lectures de : 5 volts / 1024 unités, soit 0,0049 volts (4,9 mV) par unité.
+
+**Syntaxe :**
+
+analogRead(**pin**)
+
+**Paramètres :**
+
+**pin** : le nom de la broche d'entrée analogique à lire (A0 à A5 sur la plupart des cartes).
+
+**Renvoie :** La lecture analogique sur la broche. Bien qu'elle soit limitée à la résolution du convertisseur analogique-numérique (0-1023 pour 10 bits ou 0-4095 pour 12 bits). Type de données : int.
+
+Cette fonction est utilisée pour lire la valeur des broches analogiques (la position du capteur rotatif), la plage de valeurs est : 0 ~ 1023.
+
+```cpp
+delay(rotaryValue);
+```
+
+Fonction de retard : la durée en millisecondes du retard est la valeur entre parenthèses. Comme la valeur est la valeur du signal analogique de la broche du potentiomètre en cours de lecture, le temps de retard peut être contrôlé par le potentiomètre.
+
+**Effet de démonstration et résultat de l'impression série :**
+
+Tourner le potentiomètre modifiera la fréquence du clignotement de la LED.
+
+Guide de connexion
+
+Utilisez un câble Grove pour connecter la LED à l'interface numérique **D4** du Seeeduino Lotus, et un câble Grove pour connecter le commutateur rotatif Grove à l'interface de signal analogique **A0**.
+
+
+### Lesson 4: Making the Buzzer go BEEP
 
 
 
